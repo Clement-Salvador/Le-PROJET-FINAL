@@ -10,7 +10,7 @@ Ce service joue le rôle de **passerelle centrale** entre les clients (utilisate
 
 Le `gateway-service` est le **seul service exposé publiquement via Traefik**. Il est chargé de :
 
-- **Relayer dynamiquement** les requêtes REST vers les bons services internes,
+- **Relayer** les requêtes REST vers les bons services internes,
 - **Transmettre les en-têtes d’authentification (JWT)** de manière sécurisée,
 - **Analyser les tokens JWT** pour vérifier les droits d’accès avant transmission,
 - **Fusionner les réponses** issues de plusieurs services pour certaines routes complexes (ex. `/fullinfo`).
@@ -29,7 +29,3 @@ Le `stats-service` a pour mission de **fournir des métriques** sur l’activit�
 - les messages les plus réactés.
 
 Ce service **n’est pas exposé publiquement**, mais il peut être interrogé par le `gateway-service` via des routes `/stats/...`.
-
----
-
-➡️ Ce dépôt contient le développement, la documentation, les fichiers de test et la conteneurisation (Docker) de ces deux services.
