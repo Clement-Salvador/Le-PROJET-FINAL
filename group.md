@@ -9,3 +9,4 @@
   - Clément → gestion des `Dockerfile` pour `gateway-service` et `stats-service`. Gestion des différents fichiers .md .
   - Émilien → développement Flask (routes, logique JWT, proxy...).
   - Guillaume → mise en place du `docker-compose.yml`, configuration Traefik, tests de connectivité entre services.
+- **10h40** : Le build docker a fonctionné.
