@@ -30,3 +30,21 @@ def get_health():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5004)
+
+
+# TODO: Implémenter la redirection des routes suivantes :
+# - /register → user-service
+# - /login → user-service
+# - /msg, /msg/... → message-service
+# - /channel, /channel/... → channel-service
+
+# TODO: Implémenter la route GET /fullinfo?user=...&channel=...
+#       - appeler /whois (user-service)
+#       - appeler /channel/config (channel-service)
+#       - appeler /msg?channel=... (message-service)
+
+# TODO: Ajouter gestion des erreurs HTTP :
+#       - 401 Unauthorized si JWT invalide
+#       - 403 Forbidden si rôle insuffisant
+
+# TODO: Ajouter des logs print() pour chaque appel redirigé
