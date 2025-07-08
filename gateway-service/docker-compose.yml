@@ -23,10 +23,25 @@ services:
     container_name: flask-gateway
     networks:
       - traefik
+    ports:
+      - "5004:5004"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.gateway.rule=PathPrefix(`/`)"
       - "traefik.http.services.gateway.loadbalancer.server.port=5004"
+
+  user-service:
+    image: ../user-service/
+    container_name: user-service
+    networks:
+      - traefik
+    ports:
+      - "5004:5004"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.api1.rule=PathPrefix(`/login`)"
+      - "traefik.http.routers.api1.entrypoints=web"
+      - "traefik.http.services.api1.loadbalancer.server.port=5001"
 
 networks:
   traefik:
