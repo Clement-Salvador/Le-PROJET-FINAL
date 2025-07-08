@@ -25,8 +25,82 @@ services:
       - traefik
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.gateway.rule=PathPrefix(`/`)"
+      - "traefik.http.routers.gateway.rule=Path(`/`)"
+      - "traefik.http.routers.gateway.entrypoints=web"
       - "traefik.http.services.gateway.loadbalancer.server.port=5004"
+
+  user:
+    image: userservice:1.0.1
+    ports:
+      - "5001:5001"
+    networks:
+      - traefik
+    environment:
+      - JWT_SECRET=${JWT_SECRET}
+    depends_on:
+      db-user:
+        condition: service_healthy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.user.rule=PathPrefix(`/login`)"
+      - "traefik.http.routers.user.rule=PathPrefix(`/register`)"
+      - "traefik.http.routers.user.entrypoints=web"
+      - "traefik.http.services.user.loadbalancer.server.port=5001"
+
+  db-user:
+    image: mysql:8.0
+    networks:
+      - traefik
+    env_file:
+      - ../user-service/.env
+    environment:
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - dbdata:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-p${MYSQL_ROOT_PASSWORD}" ]
+      interval: 5s
+      retries: 6
+
+  channel:
+    image: channel:1.0.1
+    ports:
+      - "5003:5003"
+    networks:
+      - traefik
+    environment:
+      - JWT_SECRET=${JWT_SECRET}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.user.rule=PathPrefix(`/channel`)"
+      - "traefik.http.routers.user.entrypoints=web"
+      - "traefik.http.services.user.loadbalancer.server.port=5003"
+
+  message:
+    image: message:1.0.1
+    ports:
+      - "5002:5002"
+    networks:
+      - traefik
+    environment:
+      - JWT_SECRET=${JWT_SECRET}
+    depends_on:
+      db-user:
+        condition: service_healthy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.user.rule=PathPrefix(`/msg`)"
+      - "traefik.http.routers.user.rule=PathPrefix(`/msg/`)"
+      - "traefik.http.routers.user.entrypoints=web"
+      - "traefik.http.services.user.loadbalancer.server.port=5002"
+
+volumes:
+  dbdata:
 
 networks:
   traefik:
