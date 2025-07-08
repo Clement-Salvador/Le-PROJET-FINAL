@@ -36,7 +36,7 @@ services:
       - traefik
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.user.rule=Path(`/login`)"
+      - "traefik.http.routers.user.rule=PathPrefix(`/login`)"
       - "traefik.http.routers.user.entrypoints=web"
       - "traefik.http.services.user.loadbalancer.server.port=5001"
 
