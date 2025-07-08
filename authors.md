@@ -6,6 +6,6 @@
 
 ## Membres du groupe
 
-- **Guillaume Pomies**
-- **Émilien Restoueix**
-- **Clément Salvador**
+- **Guillaume POMIÈS**
+- **Émilien RESTOUEIX**
+- **Clément SALVADOR**
