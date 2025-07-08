@@ -1,5 +1,13 @@
 # Suivi de projet — Groupe 4 (`gateway-service` + `stats-service`)
 
+**Rôles répartis**
+
+| Membre            | Rôle                 |
+| ----------------- | -------------------- |
+| Clément SALVADOR  | Responsable doc      |
+| Guillaume POMIÈS  | Coordinateur API     |
+| Émilien RESTOUEIX | Dev principal Python |
+
 ## Journal de bord
 
 ### Lundi 07 Juillet
@@ -9,4 +17,6 @@
   - Clément → gestion des `Dockerfile` pour `gateway-service` et `stats-service`. Gestion des différents fichiers .md .
   - Émilien → développement Flask (routes, logique JWT, proxy...).
   - Guillaume → mise en place du `docker-compose.yml`, configuration Traefik, tests de connectivité entre services.
-- **10h40** : Le build docker a fonctionné.
+- **10h40** : Premier build Docker réussi le gateway-service.
+- **11h10** : Intégration de Traefik dans le `docker-compose.yml`, ajout des labels pour le `gateway-service`.
+
